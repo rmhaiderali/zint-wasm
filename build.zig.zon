@@ -1,0 +1,11 @@
+.{
+    .name = .zint_wasm,
+    .version = "0.1.0",
+    .fingerprint = 0x35b5c8e2783b7220,
+    .minimum_zig_version = "0.15.0",
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+    },
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>zint-wasm</title>
+  <style>
+    * { margin: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: #fafafa; color: #1a1a1a; padding: 2rem; max-width: 540px; margin: 0 auto; }
+    h1 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem; }
+    label { display: block; font-size: 0.8rem; font-weight: 500; color: #555; margin-bottom: 0.3rem; }
+    input, select { width: 100%; padding: 0.5rem 0.6rem; border: 1px solid #d0d0d0; border-radius: 6px; font-size: 0.9rem; background: #fff; }
+    input:focus, select:focus { outline: none; border-color: #888; }
+    .field { margin-bottom: 1rem; }
+    .scale-row { display: flex; align-items: center; gap: 0.75rem; }
+    .scale-row input[type="range"] { flex: 1; padding: 0; border: none; }
+    .scale-row span { font-size: 0.85rem; min-width: 1.5ch; text-align: right; }
+    #output { margin-top: 1.5rem; display: flex; justify-content: center; }
+    #output svg { max-width: 100%; height: auto; }
+    #error { margin-top: 1rem; font-size: 0.8rem; color: #c33; min-height: 1.2em; }
+  </style>
+</head>
+<body>
+  <h1>zint-wasm</h1>
+
+  <div class="field">
+    <label for="data">Content</label>
+    <input id="data" type="text" value="Hello">
+  </div>
+
+  <div class="field">
+    <label for="symbology">Symbology</label>
+    <select id="symbology">
+      <option value="97" selected>MicroQR</option>
+      <option value="58">QR Code</option>
+      <option value="145">RMQR</option>
+      <option value="71">DataMatrix</option>
+      <option value="92">Aztec</option>
+      <option value="20">Code128</option>
+      <option value="55">PDF417</option>
+    </select>
+  </div>
+
+  <div class="field">
+    <label for="scale">Scale</label>
+    <div class="scale-row">
+      <input id="scale" type="range" min="1" max="10" value="4">
+      <span id="scale-val">4</span>
+    </div>
+  </div>
+
+  <div id="output"></div>
+  <div id="error"></div>
+
+  <script type="module">
+    import Zint from './src/zint.js';
+
+    const zint = await Zint.init('zig-out/bin/zint.wasm');
+    const dataEl = document.getElementById('data');
+    const symEl = document.getElementById('symbology');
+    const scaleEl = document.getElementById('scale');
+    const scaleVal = document.getElementById('scale-val');
+    const outputEl = document.getElementById('output');
+    const errorEl = document.getElementById('error');
+
+    function render() {
+      scaleVal.textContent = scaleEl.value;
+      errorEl.textContent = '';
+      outputEl.innerHTML = '';
+
+      const data = dataEl.value;
+      if (!data) return;
+
+      try {
+        const result = zint.svg(Number(symEl.value), data, { scale: Number(scaleEl.value) });
+        outputEl.innerHTML = result.svg;
+      } catch (e) {
+        errorEl.textContent = e.message;
+      }
+    }
+
+    dataEl.addEventListener('input', render);
+    symEl.addEventListener('change', render);
+    scaleEl.addEventListener('input', render);
+    render();
+  </script>
+</body>
+</html>

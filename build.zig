@@ -1,0 +1,81 @@
+const std = @import("std");
+
+pub fn build(b: *std.Build) void {
+    const wasm = b.addExecutable(.{
+        .name = "zint",
+        .root_module = b.createModule(.{
+            .root_source_file = b.path("src/wasm.zig"),
+            .target = b.resolveTargetQuery(.{ .cpu_arch = .wasm32, .os_tag = .wasi }),
+            .optimize = .ReleaseSmall,
+            .link_libc = true,
+        }),
+    });
+
+    wasm.entry = .disabled;
+    wasm.rdynamic = true;
+
+    wasm.root_module.addCSourceFiles(.{
+        .root = b.path("zint/backend"),
+        .files = zint_sources,
+        .flags = &.{"-DZINT_NO_PNG"},
+    });
+
+    wasm.root_module.addIncludePath(b.path("zint/backend"));
+
+    b.installArtifact(wasm);
+}
+
+const zint_sources: []const []const u8 = &.{
+    "common.c",
+    "eci.c",
+    "filemem.c",
+    "general_field.c",
+    "gs1.c",
+    "large.c",
+    "library.c",
+    "reedsol.c",
+    "2of5.c",
+    "2of5inter.c",
+    "2of5inter_based.c",
+    "bc412.c",
+    "channel.c",
+    "codabar.c",
+    "code.c",
+    "code11.c",
+    "code128.c",
+    "code128_based.c",
+    "dxfilmedge.c",
+    "medical.c",
+    "plessey.c",
+    "rss.c",
+    "telepen.c",
+    "upcean.c",
+    "auspost.c",
+    "imail.c",
+    "mailmark.c",
+    "postal.c",
+    "aztec.c",
+    "codablock.c",
+    "code1.c",
+    "code16k.c",
+    "code49.c",
+    "composite.c",
+    "dmatrix.c",
+    "dotcode.c",
+    "gridmtx.c",
+    "hanxin.c",
+    "maxicode.c",
+    "pdf417.c",
+    "qr.c",
+    "ultra.c",
+    "bmp.c",
+    "emf.c",
+    "gif.c",
+    "output.c",
+    "pcx.c",
+    "ps.c",
+    "raster.c",
+    "svg.c",
+    "tif.c",
+    "vector.c",
+};
