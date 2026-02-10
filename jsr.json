@@ -4,6 +4,6 @@
   "description": "Zint barcode library compiled to WebAssembly. Generate 50+ barcode types (QR, MicroQR, DataMatrix, Code128, etc.) as SVG or raw module data.",
   "exports": "./src/zint.js",
   "publish": {
-    "include": ["src/zint.js", "src/zint.d.ts", "src/zint.wasm", "LICENSE"]
+    "include": ["src/zint.js", "src/zint.d.ts", "src/zint.wasm", "LICENSE", "README.md"]
   }
 }

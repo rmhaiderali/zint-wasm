@@ -1,0 +1,32 @@
+name: Publish to JSR
+
+on:
+  push:
+    tags:
+      - "*"
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - uses: mlugg/setup-zig@v2
+        with:
+          version: 0.15.1
+
+      - run: zig build
+
+      - run: cp zig-out/bin/zint.wasm src/zint.wasm
+
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      - run: deno publish
