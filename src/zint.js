@@ -1,3 +1,5 @@
+// @ts-self-types="./zint.d.ts"
+
 const SYMBOLOGIES = {
   CODE11: 1,
   C25STANDARD: 2,
@@ -100,9 +102,15 @@ class Zint {
     if (!this.#symbol) throw new Error("Failed to create zint symbol");
   }
 
-  static async init(wasmPath = "zint.wasm") {
-    const response = await fetch(wasmPath);
-    const bytes = await response.arrayBuffer();
+  static async init(source) {
+    let bytes;
+    if (source instanceof ArrayBuffer || source instanceof Uint8Array) {
+      bytes = source;
+    } else {
+      const url = source || new URL("zint.wasm", import.meta.url);
+      const response = await fetch(url);
+      bytes = await response.arrayBuffer();
+    }
     const wasi = {
       args_get: () => 0,
       args_sizes_get: (argc_ptr, argv_buf_size_ptr) => {

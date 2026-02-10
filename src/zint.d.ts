@@ -19,7 +19,7 @@ export interface ZintEncodeResult {
 }
 
 declare class Zint {
-  static init(wasmPath?: string): Promise<Zint>;
+  static init(source?: string | URL | ArrayBuffer | Uint8Array): Promise<Zint>;
 
   svg(symbology: number, data: string, options?: ZintOptions): ZintSvgResult;
   encode(symbology: number, data: string, options?: ZintOptions): ZintEncodeResult;

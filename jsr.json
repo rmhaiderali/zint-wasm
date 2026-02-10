@@ -1,0 +1,9 @@
+{
+  "name": "@zshzebra/zint-wasm",
+  "version": "0.1.0",
+  "exports": "./src/zint.js",
+  "include": ["src/zint.js", "src/zint.d.ts", "src/zint.wasm"],
+  "publish": {
+    "include": ["src/zint.js", "src/zint.d.ts", "src/zint.wasm"]
+  }
+}
