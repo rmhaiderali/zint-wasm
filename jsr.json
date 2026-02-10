@@ -1,9 +1,9 @@
 {
   "name": "@zshzebra/zint-wasm",
-  "version": "0.1.0",
+  "version": "2.16.0",
+  "description": "Zint barcode library compiled to WebAssembly. Generate 50+ barcode types (QR, MicroQR, DataMatrix, Code128, etc.) as SVG or raw module data.",
   "exports": "./src/zint.js",
-  "include": ["src/zint.js", "src/zint.d.ts", "src/zint.wasm"],
   "publish": {
-    "include": ["src/zint.js", "src/zint.d.ts", "src/zint.wasm"]
+    "include": ["src/zint.js", "src/zint.d.ts", "src/zint.wasm", "LICENSE"]
   }
 }

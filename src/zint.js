@@ -1,5 +1,38 @@
 // @ts-self-types="./zint.d.ts"
 
+/**
+ * @module
+ *
+ * Zint barcode library compiled to WebAssembly.
+ * Supports 50+ symbologies including QR, MicroQR, DataMatrix, Code128, Aztec, PDF417, and more.
+ * Outputs SVG strings or raw module data for custom rendering.
+ *
+ * @example Generate an SVG barcode
+ * ```ts
+ * import Zint from "@zshzebra/zint-wasm";
+ *
+ * const zint = await Zint.init();
+ * const { svg } = zint.svg(Zint.MICROQR, "Hello", { scale: 4 });
+ * document.body.innerHTML = svg;
+ * ```
+ *
+ * @example Encode to raw module data
+ * ```ts
+ * import Zint from "@zshzebra/zint-wasm";
+ *
+ * const zint = await Zint.init();
+ * const { data, width, rows } = zint.encode(Zint.QRCODE, "https://example.com");
+ * // data is a Uint8Array of module values, row-major, width*rows elements
+ * ```
+ *
+ * @example Load WASM from a custom path
+ * ```ts
+ * import Zint from "@zshzebra/zint-wasm";
+ *
+ * const zint = await Zint.init("/assets/zint.wasm");
+ * ```
+ */
+
 const SYMBOLOGIES = {
   CODE11: 1,
   C25STANDARD: 2,
