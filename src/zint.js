@@ -183,7 +183,11 @@ class Zint {
     ({ instance } = await WebAssembly.instantiate(bytes, {
       wasi_snapshot_preview1: wasi,
     }));
-    instance.exports._start();
+    if (instance.exports._initialize) {
+      instance.exports._initialize();
+    } else if (instance.exports._start) {
+      instance.exports._start();
+    }
     return new Zint(instance);
   }
 
@@ -195,11 +199,14 @@ class Zint {
     e.setSymbology(this.#symbol, symbology);
     e.setShowHrt(this.#symbol, 0);
 
+    if (options.eci != null) e.setEci(this.#symbol, options.eci);
     if (options.scale != null) e.setScale(this.#symbol, options.scale);
     if (options.option1 != null) e.setOption1(this.#symbol, options.option1);
     if (options.option2 != null) e.setOption2(this.#symbol, options.option2);
+    if (options.option3 != null) e.setOption3(this.#symbol, options.option3);
     if (options.inputMode != null) e.setInputMode(this.#symbol, options.inputMode);
     if (options.showHrt != null) e.setShowHrt(this.#symbol, options.showHrt ? 1 : 0);
+    if (options.outputOptions != null) e.setOutputOptions(this.#symbol, options.outputOptions);
 
     const encoded = encoder.encode(data);
     const ptr = e.allocate(encoded.length);
@@ -231,9 +238,12 @@ class Zint {
     e.clearSymbol(this.#symbol);
     e.setSymbology(this.#symbol, symbology);
 
+    if (options.eci != null) e.setEci(this.#symbol, options.eci);
     if (options.option1 != null) e.setOption1(this.#symbol, options.option1);
     if (options.option2 != null) e.setOption2(this.#symbol, options.option2);
+    if (options.option3 != null) e.setOption3(this.#symbol, options.option3);
     if (options.inputMode != null) e.setInputMode(this.#symbol, options.inputMode);
+    if (options.outputOptions != null) e.setOutputOptions(this.#symbol, options.outputOptions);
 
     const encoded = encoder.encode(data);
     const ptr = e.allocate(encoded.length);

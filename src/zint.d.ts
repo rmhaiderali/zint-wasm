@@ -27,12 +27,19 @@
 export interface ZintOptions {
   /** Scale factor for SVG output. Default 1. */
   scale?: number;
+  /** Extended Channel Interpretation value. Default 0. 
+   * @see https://en.wikipedia.org/wiki/Extended_Channel_Interpretation */
+  eci?: number;
   /** Symbol-specific option 1 (e.g. ECC level for QR). */
   option1?: number;
   /** Symbol-specific option 2 (e.g. version/size for QR). */
   option2?: number;
+  /** Symbol-specific option 3 (e.g. Data Mask for QR 1-8 << 8). */
+  option3?: number;
   /** Input encoding mode. Default DATA_MODE (0). */
   inputMode?: number;
+  /** Output options (e.g. readerInit). */
+  outputOptions?: number;
   /** Whether to render Human Readable Text. Default false for svg(), unset for encode(). */
   showHrt?: boolean;
 }

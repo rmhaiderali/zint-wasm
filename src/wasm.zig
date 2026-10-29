@@ -1,6 +1,4 @@
-const c = @cImport({
-    @cInclude("zint.h");
-});
+const c = @import("c");
 
 const std = @import("std");
 const page_allocator = std.heap.wasm_allocator;
@@ -46,8 +44,20 @@ export fn setOption2(symbol: *c.zint_symbol, val: c_int) void {
     symbol.option_2 = val;
 }
 
+export fn setOption3(symbol: *c.zint_symbol, val: c_int) void {
+    symbol.option_3 = val;
+}
+
 export fn setInputMode(symbol: *c.zint_symbol, mode: c_int) void {
     symbol.input_mode = mode;
+}
+
+export fn setEci(symbol: *c.zint_symbol, eci: c_int) void {
+    symbol.eci = eci;
+}
+
+export fn setOutputOptions(symbol: *c.zint_symbol, options: c_int) void {
+    symbol.output_options = options;
 }
 
 export fn setShowHrt(symbol: *c.zint_symbol, val: c_int) void {
