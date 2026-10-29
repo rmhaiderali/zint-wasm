@@ -1,3 +1,4 @@
 zig-out/
 zig-cache/
 .zig-cache/
+src/zint.wasm

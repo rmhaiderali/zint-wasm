@@ -2,25 +2,12 @@
 
 [Zint](https://github.com/zint/zint) barcode library compiled to WebAssembly. Generate 50+ barcode types as SVG or raw module data, in the browser or any JS runtime.
 
-[![JSR](https://jsr.io/badges/@zshzebra/zint-wasm)](https://jsr.io/@zshzebra/zint-wasm)
-
-## Install
-
-```sh
-# Deno
-deno add jsr:@zshzebra/zint-wasm
-
-# Bun
-bunx jsr add @zshzebra/zint-wasm
-
-# npm
-npx jsr add @zshzebra/zint-wasm
-```
+Forked from [@zshzebra/zint-wasm](https://github.com/zshzebra/zint-wasm).
 
 ## Usage
 
 ```ts
-import Zint from "@zshzebra/zint-wasm";
+import Zint from "@rmhaiderali/zint-wasm";
 
 const zint = await Zint.init();
 
@@ -56,10 +43,10 @@ QR Code, MicroQR, RMQR, DataMatrix, Aztec, PDF417, Code128, Code39, EAN/UPC, GS1
 
 ## Building from source
 
-Requires [Zig](https://ziglang.org/) 0.15+.
+Requires [Zig](https://ziglang.org/) 0.17.0+.
 
 ```sh
-git clone --recurse-submodules https://github.com/zshzebra/zint-wasm.git
+git clone --recurse-submodules https://github.com/rmhaiderali/zint-wasm.git
 cd zint-wasm
 zig build
 ```

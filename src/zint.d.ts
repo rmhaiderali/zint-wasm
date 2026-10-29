@@ -7,7 +7,7 @@
  *
  * @example Generate an SVG barcode
  * ```ts
- * import Zint from "@zshzebra/zint-wasm";
+ * import Zint from "@rmhaiderali/zint-wasm";
  *
  * const zint = await Zint.init();
  * const { svg } = zint.svg(Zint.MICROQR, "Hello", { scale: 4 });
@@ -16,7 +16,7 @@
  *
  * @example Encode to raw module data
  * ```ts
- * import Zint from "@zshzebra/zint-wasm";
+ * import Zint from "@rmhaiderali/zint-wasm";
  *
  * const zint = await Zint.init();
  * const { data, width, rows } = zint.encode(Zint.QRCODE, "https://example.com");
