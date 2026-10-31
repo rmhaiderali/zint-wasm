@@ -17,7 +17,7 @@
     "type": "git",
     "url": "git+https://github.com/rmhaiderali/zint-wasm"
   },
-  "homepage": "https://rmhaiderali.github.io/zint-wasm",
+  "homepage": "https://github.com/rmhaiderali/zint-wasm",
   "files": [
     "src/zint.js",
     "src/zint.d.ts",
